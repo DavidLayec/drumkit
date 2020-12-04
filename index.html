@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS TR 909</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1 class="title">TR 909</h1>
+
+  <div class="keys">
+    <div data-key="81" class="key">
+      <kbd>Q</kbd>
+      <span class="sound">Kick</span>
+    </div>
+
+    <div data-key="87" class="key">
+      <kbd>W</kbd>
+      <span class="sound">Clap</span>
+    </div>
+
+    <div data-key="69" class="key">
+      <kbd>E</kbd>
+      <span class="sound">Snare</span>
+    </div>
+
+    <div data-key="82" class="key">
+      <kbd>R</kbd>
+      <span class="sound">HH C</span>
+    </div>
+
+    <div data-key="84" class="key">
+      <kbd>T</kbd>
+      <span class="sound">HH O</span>
+    </div>
+
+    <div data-key="89" class="key">
+      <kbd>Y</kbd>
+      <span class="sound">Ride</span>
+    </div>
+
+    <div data-key="85" class="key">
+      <kbd>U</kbd>
+      <span class="sound">Crash 1</span>
+    </div>
+
+    <div data-key="73" class="key">
+      <kbd>I</kbd>
+      <span class="sound">Crash 2</span>
+    </div>
+
+    <div data-key="79" class="key">
+      <kbd>O</kbd>
+      <span class="sound">Rim</span>
+    </div>
+
+    <div data-key="80" class="key">
+      <kbd>P</kbd>
+      <span class="sound">Tom 1</span>
+    </div>
+
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">Tom 2</span>
+    </div>
+
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">Tom 3</span>
+    </div>
+
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">Tom 4</span>
+    </div>
+  </div>
+
+  <audio data-key="81" src="sounds/kick.wav"></audio>
+  <audio data-key="87" src="sounds/clap.wav"></audio>
+  <audio data-key="69" src="sounds/snare.wav"></audio>
+  <audio data-key="82" src="sounds/hihat-closed.wav"></audio>
+  <audio data-key="84" src="sounds/hihat-open.wav"></audio>
+  <audio data-key="89" src="sounds/ride.wav"></audio>
+  <audio data-key="85" src="sounds/crash-1.wav"></audio>
+  <audio data-key="73" src="sounds/crash-2.wav"></audio>
+  <audio data-key="79" src="sounds/rim.wav"></audio>
+  <audio data-key="80" src="sounds/tom-hi.wav"></audio>
+  <audio data-key="65" src="sounds/tom-mid.wav"></audio>
+  <audio data-key="83" src="sounds/tom-low.wav"></audio>
+  <audio data-key="68" src="sounds/tom-low-2.wav"></audio>
+
+  <script>
+    window.addEventListener('keydown',function(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+       if (!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+     });
+
+     function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
+      e.target.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key')
+    keys.forEach(key =>key.addEventListener('transitionend', removeTransition));
+  </script>
+
+</body>
+</html>
